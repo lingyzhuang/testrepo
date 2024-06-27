@@ -444,8 +444,6 @@ spec:
     workingDir: $(workspaces.source.path)
 
   volumes:
-  - name: varlibcontainers
-    emptyDir: {}
   - name: etc-pki-entitlement
     secret:
       secretName: $(params.ENTITLEMENT_SECRET)
