@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   annotations:
-    build.appstudio.openshift.io/repo:
+    build.appstudio.openshift.io/repo: ""
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
@@ -152,7 +152,7 @@ spec:
       - name: output
         workspace: workspace
       - name: basic-auth
-        workspace: git-auth    
+        workspace: git-auth
     - name: prefetch-dependencies
       params:
       - name: input
@@ -203,7 +203,6 @@ spec:
         - name: kind
           value: task
         resolver: bundles
-      when:
       workspaces:
       - name: source
         workspace: workspace
@@ -346,7 +345,8 @@ spec:
     - name: workspace
     - name: git-auth
       optional: true
-  taskRunTemplate: {}
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-testrepo
   workspaces:
   - name: workspace
     volumeClaimTemplate:
